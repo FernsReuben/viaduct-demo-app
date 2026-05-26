@@ -21,3 +21,6 @@ authorization or provisioning infrastructure.
 ```bash
 npm install
 npm run dev
+```
+
+Currently runs frontend and mock backend concurrently for seeded demo data
