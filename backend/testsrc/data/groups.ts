@@ -3,65 +3,53 @@ export const groups = [
     id: "g1",
     name: "Super Admin",
 
-    permissions: {
-      github: "admin",
-      discord: "administrator",
-      google: "super_admin",
-    },
+    childGroups: ["g2", "g3"],
+
+    externalGroups: ["eg1", "eg4", "eg7"],
   },
 
   {
     id: "g2",
     name: "Maintainer",
 
-    permissions: {
-      github: "write",
-      discord: "moderator",
-      google: "admin_docs",
-    },
+    childGroups: ["g3"],
+
+    externalGroups: ["eg2", "eg5", "eg8"],
   },
 
   {
     id: "g3",
     name: "Committer",
 
-    permissions: {
-      github: "push",
-      discord: "trusted_member",
-      google: "engineering_docs",
-    },
+    childGroups: [],
+
+    externalGroups: ["eg3"],
   },
 
   {
     id: "g4",
     name: "Reviewer",
 
-    permissions: {
-      github: "triage",
-      discord: "reviewer",
-      google: "review_access",
-    },
+    childGroups: [],
+
+    externalGroups: ["eg9"],
   },
 
   {
     id: "g5",
     name: "Contributor",
 
-    permissions: {
-      github: "read",
-      discord: "member",
-      google: "docs_access",
-    },
+    childGroups: [],
+
+    externalGroups: ["eg6"],
   },
 
   {
     id: "g6",
     name: "Community Moderator",
 
-    permissions: {
-      github: "none",
-      discord: "moderator",
-      google: "community_access",
-    },
+    childGroups: [],
+
+    externalGroups: ["eg5", "eg6"],
   },
 ];

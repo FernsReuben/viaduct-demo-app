@@ -9,7 +9,7 @@ import OnboardingModal from "./components/OnboardingModal";
 import DashboardPage from "./pages/Dashboard";
 import UsersPage from "./pages/Users";
 import GroupsPage from "./pages/Groups";
-import IntegrationsPage from "./pages/Integrations";
+import ExternalGroupsPage from "./pages/ExternalGroups";
 import ProvisioningPage from "./pages/Provisioning";
 import ActivityPage from "./pages/Activity";
 import SettingsPage from "./pages/Settings";
@@ -44,11 +44,9 @@ export type Group = {
   id: string;
   name: string;
 
-  permissions: {
-    github: string;
-    discord: string;
-    google: string;
-  };
+  childGroups: string[];
+
+  externalGroups: string[];
 };
 
 export type Activity = {
@@ -57,6 +55,14 @@ export type Activity = {
   user: string;
   timestamp: string;
   status: string;
+};
+
+export type ExternalGroup = {
+  id: string;
+  provider: string;
+  name: string;
+
+  mappedGroups: string[];
 };
 
 const API_URL = "http://localhost:3001";
@@ -72,6 +78,8 @@ export default function App() {
 
   const [darkMode, setDarkMode] = useState(true);
 
+  const [externalGroups, setExternalGroups] = useState<ExternalGroup[]>([]);
+
   useEffect(() => {
     fetch(`${API_URL}/users`)
       .then((res) => res.json())
@@ -84,6 +92,10 @@ export default function App() {
     fetch(`${API_URL}/activity`)
       .then((res) => res.json())
       .then(setActivity);
+
+    fetch(`${API_URL}/external-groups`)
+      .then((res) => res.json())
+      .then(setExternalGroups);
   }, []);
 
   const addUser = (user: User) => {
@@ -147,11 +159,15 @@ export default function App() {
 
                 <SidebarLink to="/users" label="Users" darkMode={darkMode} />
 
-                <SidebarLink to="/groups" label="Groups" darkMode={darkMode} />
+                <SidebarLink
+                  to="/groups"
+                  label="Internal Groups"
+                  darkMode={darkMode}
+                />
 
                 <SidebarLink
-                  to="/integrations"
-                  label="Integrations"
+                  to="/external-groups"
+                  label="External Groups"
                   darkMode={darkMode}
                 />
 
@@ -272,14 +288,15 @@ export default function App() {
                     <GroupsPage
                       groups={groups}
                       users={users}
+                      externalGroups={externalGroups}
                       darkMode={darkMode}
                     />
                   }
                 />
 
                 <Route
-                  path="/integrations"
-                  element={<IntegrationsPage darkMode={darkMode} />}
+                  path="/external-groups"
+                  element={<ExternalGroupsPage darkMode={darkMode} />}
                 />
 
                 <Route
