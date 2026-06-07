@@ -20,7 +20,7 @@ export const users = [
       groups: ["super-admins@openbridge.dev"],
     },
 
-    groups: ["super_admin"],
+    groups: ["g1"],
   },
 
   {
@@ -44,7 +44,7 @@ export const users = [
       groups: ["maintainers@openbridge.dev"],
     },
 
-    groups: ["maintainer"],
+    groups: ["g2"],
   },
 
   {
@@ -68,7 +68,7 @@ export const users = [
       groups: ["committers@openbridge.dev"],
     },
 
-    groups: ["committer"],
+    groups: ["g3"],
   },
 
   {
@@ -92,7 +92,7 @@ export const users = [
       groups: ["contributors@openbridge.dev"],
     },
 
-    groups: ["contributor"],
+    groups: ["g5"],
   },
 
   {
@@ -116,7 +116,7 @@ export const users = [
       groups: ["reviewers@openbridge.dev"],
     },
 
-    groups: ["reviewer"],
+    groups: ["g4"],
   },
 
   {
@@ -140,6 +140,6 @@ export const users = [
       groups: ["community@openbridge.dev"],
     },
 
-    groups: ["community_moderator"],
+    groups: ["g6"],
   },
 ];

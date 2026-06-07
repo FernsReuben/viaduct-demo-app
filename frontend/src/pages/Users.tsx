@@ -1,12 +1,24 @@
+import { useNavigate } from "react-router-dom";
+
 type Props = {
   users: any[];
   darkMode: boolean;
+};
+
+const groupNameMap: Record<string, string> = {
+  g1: "Super Admin",
+  g2: "Maintainer",
+  g3: "Committer",
+  g4: "Reviewer",
+  g5: "Contributor",
+  g6: "Community Moderator",
 };
 
 export default function UsersPage({
   users,
   darkMode,
 }: Props) {
+  const navigate = useNavigate();
   return (
     <section
       className={`rounded-3xl border p-8 transition-colors duration-300 ${
@@ -96,7 +108,8 @@ export default function UsersPage({
             {users.map((user: any) => (
               <tr
                 key={user.id}
-                className={`border-t transition ${
+                onClick={() => navigate(`/users/${user.id}`)}
+                className={`border-t cursor-pointer transition ${
                   darkMode
                     ? "border-slate-800 hover:bg-slate-900/40"
                     : "border-slate-200 hover:bg-slate-50"
@@ -142,10 +155,7 @@ export default function UsersPage({
                           key={group}
                           className="rounded-full bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-500"
                         >
-                          {group.replace(
-                            "_",
-                            " "
-                          )}
+                          {groupNameMap[group] || group}
                         </span>
                       )
                     )}

@@ -15,6 +15,13 @@ const steps = [
   "Review",
 ];
 
+const roleToGroupId: Record<string, string> = {
+  Contributor: "g5",
+  Committer: "g3",
+  Maintainer: "g2",
+  "Super Admin": "g1",
+};
+
 export default function OnboardingModal({
   open,
   onClose,
@@ -28,7 +35,7 @@ export default function OnboardingModal({
       email: "",
       github: "",
       discord: "",
-      role: "Contributor",
+      roles: ["Contributor"],
     });
 
   if (!open) return null;
@@ -62,19 +69,20 @@ export default function OnboardingModal({
 
       discord: {
         username: formData.discord,
-        roles: [formData.role],
+        roles: formData.roles,
       },
 
       google: {
         email: formData.email,
-        groups: [
-          `${formData.role.toLowerCase()}s@openbridge.dev`,
-        ],
+        groups: formData.roles.map(
+          (role) =>
+            `${role.toLowerCase()}s@openbridge.dev`,
+        ),
       },
 
-      groups: [
-        formData.role.toLowerCase(),
-      ],
+      groups: formData.roles.map(
+        (role) => roleToGroupId[role],
+      ),
     };
 
     onAddUser(newUser);
@@ -88,7 +96,7 @@ export default function OnboardingModal({
       email: "",
       github: "",
       discord: "",
-      role: "Contributor",
+      roles: ["Contributor"],
     });
   };
 
@@ -205,35 +213,53 @@ export default function OnboardingModal({
           {step === 4 && (
             <div>
               <h3 className="mb-4 text-xl font-semibold">
-                Assign Role
+                Assign Roles
               </h3>
 
-              <select
-                value={formData.role}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    role: e.target.value,
-                  })
-                }
-                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3"
-              >
-                <option>
-                  Contributor
-                </option>
-
-                <option>
-                  Committer
-                </option>
-
-                <option>
-                  Maintainer
-                </option>
-
-                <option>
-                  Super Admin
-                </option>
-              </select>
+              <div className="space-y-3">
+                {[
+                  "Contributor",
+                  "Committer",
+                  "Maintainer",
+                  "Super Admin",
+                ].map((role) => (
+                  <label
+                    key={role}
+                    className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-950 p-4"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.roles.includes(
+                        role,
+                      )}
+                      onChange={(e) => {
+                        if (
+                          e.target.checked
+                        ) {
+                          setFormData({
+                            ...formData,
+                            roles: [
+                              ...formData.roles,
+                              role,
+                            ],
+                          });
+                        } else {
+                          setFormData({
+                            ...formData,
+                            roles:
+                              formData.roles.filter(
+                                (r) =>
+                                  r !== role,
+                              ),
+                          });
+                        }
+                      }}
+                      className="h-4 w-4"
+                    />
+                    <span>{role}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           )}
 
@@ -261,8 +287,8 @@ export default function OnboardingModal({
                 />
 
                 <ReviewItem
-                  label="Role"
-                  value={formData.role}
+                  label="Roles"
+                  value={formData.roles.join(", ")}
                 />
               </div>
             </div>

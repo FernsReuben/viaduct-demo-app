@@ -8,6 +8,7 @@ import OnboardingModal from "./components/OnboardingModal";
 /* PAGES */
 import DashboardPage from "./pages/Dashboard";
 import UsersPage from "./pages/Users";
+import UserDetailPage from "./pages/UserDetail";
 import GroupsPage from "./pages/Groups";
 import ExternalGroupsPage from "./pages/ExternalGroups";
 import ProvisioningPage from "./pages/Provisioning";
@@ -280,6 +281,17 @@ export default function App() {
                 <Route
                   path="/users"
                   element={<UsersPage users={users} darkMode={darkMode} />}
+                />
+
+                <Route
+                  path="/users/:userId"
+                  element={
+                    <UserDetailPage
+                      users={users}
+                      groups={groups}
+                      darkMode={darkMode}
+                    />
+                  }
                 />
 
                 <Route

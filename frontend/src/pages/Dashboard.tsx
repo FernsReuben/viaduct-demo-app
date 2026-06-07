@@ -50,15 +50,9 @@ export default function DashboardPage({
             : "border-slate-300 bg-white"
         }`}
       >
-        <h2 className="text-2xl font-semibold">
-          Platform Overview
-        </h2>
+        <h2 className="text-2xl font-semibold">Platform Overview</h2>
 
-        <p
-          className={`mt-2 ${
-            darkMode ? "text-slate-400" : "text-slate-600"
-          }`}
-        >
+        <p className={`mt-2 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
           Centralized orchestration for onboarding, permissions, and
           synchronization workflows.
         </p>
@@ -87,16 +81,12 @@ function MetricCard({
       }`}
     >
       <div
-        className={`text-sm ${
-          darkMode ? "text-slate-400" : "text-slate-600"
-        }`}
+        className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-600"}`}
       >
         {title}
       </div>
 
-      <div className="mt-3 text-4xl font-bold tracking-tight">
-        {value}
-      </div>
+      <div className="mt-3 text-4xl font-bold tracking-tight">{value}</div>
 
       <div
         className={`mt-2 text-sm ${

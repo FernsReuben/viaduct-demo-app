@@ -12,45 +12,50 @@ type Props = {
   darkMode: boolean;
 };
 
+const groupMap: Record<string, string> = {
+  g1: "Super Admin",
+  g2: "Maintainer",
+  g3: "Committer",
+  g4: "Reviewer",
+  g5: "Contributor",
+  g6: "Community Moderator",
+};
+
 const mockExternalGroups: ExternalGroup[] = [
   {
     id: "eg1",
     provider: "GitHub",
     name: "openbridge-platform",
     description: "Primary engineering organization",
-    linkedInternalGroups: ["Super Admin", "Maintainer"],
+    linkedInternalGroups: ["g1", "g2"],
   },
-
   {
     id: "eg2",
     provider: "GitHub",
     name: "openbridge-community",
     description: "Community repository access",
-    linkedInternalGroups: ["Contributor", "Community Moderator"],
+    linkedInternalGroups: ["g2", "g5"],
   },
-
   {
     id: "eg3",
     provider: "Google",
     name: "maintainers@openbridge.dev",
     description: "Google Workspace maintainer group",
-    linkedInternalGroups: ["Maintainer"],
+    linkedInternalGroups: ["g2"],
   },
-
   {
     id: "eg4",
     provider: "Discord",
     name: "Moderator",
     description: "Discord moderation permissions",
-    linkedInternalGroups: ["Community Moderator"],
+    linkedInternalGroups: ["g6"],
   },
-
   {
     id: "eg5",
     provider: "Discord",
     name: "Trusted Contributor",
     description: "Verified contributor role",
-    linkedInternalGroups: ["Contributor", "Reviewer"],
+    linkedInternalGroups: ["g5", "g4"],
   },
 ];
 
@@ -72,11 +77,8 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">External Groups</h1>
-
             <p
-              className={`mt-2 ${
-                darkMode ? "text-slate-400" : "text-slate-600"
-              }`}
+              className={`mt-2 ${darkMode ? "text-slate-400" : "text-slate-600"}`}
             >
               Map provider-specific groups to internal Viaduct groups.
             </p>
@@ -107,7 +109,7 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
         />
       </section>
 
-      {/* GROUP GRID */}
+      {/* GRID */}
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {mockExternalGroups.map((group) => (
           <div
@@ -119,7 +121,7 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
             }`}
           >
             <div className="mb-4 flex items-center justify-between">
-              <ProviderBadge provider={group.provider} />
+              <ProviderBadge provider={group.provider} darkMode={darkMode} />
 
               <button
                 onClick={() => setSelectedGroup(group)}
@@ -140,21 +142,17 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
             </p>
 
             <div className="mt-5">
-              <div
-                className={`mb-2 text-xs uppercase tracking-wide ${
-                  darkMode ? "text-slate-500" : "text-slate-500"
-                }`}
-              >
+              <div className="mb-2 text-xs uppercase tracking-wide text-slate-500">
                 Linked Internal Groups
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {group.linkedInternalGroups.map((internalGroup) => (
+                {group.linkedInternalGroups.map((id) => (
                   <span
-                    key={internalGroup}
+                    key={id}
                     className="rounded-full bg-blue-600/20 px-3 py-1 text-sm text-blue-400"
                   >
-                    {internalGroup}
+                    {groupMap[id] ?? id}
                   </span>
                 ))}
               </div>
@@ -163,7 +161,7 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
         ))}
       </section>
 
-      {/* DETAILS MODAL */}
+      {/* MODAL */}
       {selectedGroup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div
@@ -176,11 +174,8 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold">{selectedGroup.name}</h2>
-
                 <p
-                  className={`mt-1 ${
-                    darkMode ? "text-slate-400" : "text-slate-600"
-                  }`}
+                  className={`mt-1 ${darkMode ? "text-slate-400" : "text-slate-600"}`}
                 >
                   Manage internal group mappings
                 </p>
@@ -190,16 +185,9 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
             </div>
 
             <div className="space-y-3">
-              {[
-                "Super Admin",
-                "Maintainer",
-                "Committer",
-                "Reviewer",
-                "Contributor",
-                "Community Moderator",
-              ].map((group) => (
+              {Object.entries(groupMap).map(([id, name]) => (
                 <label
-                  key={group}
+                  key={id}
                   className={`flex items-center gap-3 rounded-xl p-3 ${
                     darkMode ? "bg-slate-900" : "bg-slate-100"
                   }`}
@@ -207,11 +195,10 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
                   <input
                     type="checkbox"
                     defaultChecked={selectedGroup.linkedInternalGroups.includes(
-                      group,
+                      id,
                     )}
                   />
-
-                  <span>{group}</span>
+                  <span>{name}</span>
                 </label>
               ))}
             </div>
@@ -226,9 +213,21 @@ export default function ExternalGroupsPage({ darkMode }: Props) {
   );
 }
 
-function ProviderBadge({ provider }: { provider: string }) {
+/* COMPONENTS */
+
+function ProviderBadge({
+  provider,
+  darkMode,
+}: {
+  provider: string;
+  darkMode: boolean;
+}) {
   return (
-    <div className="rounded-full bg-slate-800 px-3 py-1 text-sm">
+    <div
+      className={`rounded-full px-3 py-1 text-sm ${
+        darkMode ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-700"
+      }`}
+    >
       {provider}
     </div>
   );
@@ -256,7 +255,6 @@ function StatCard({
       >
         {title}
       </div>
-
       <div className="mt-2 text-4xl font-bold">{value}</div>
     </div>
   );
