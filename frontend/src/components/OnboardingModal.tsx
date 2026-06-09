@@ -6,14 +6,7 @@ type Props = {
   onAddUser: (user: any) => void;
 };
 
-const steps = [
-  "User Info",
-  "GitHub",
-  "Google",
-  "Discord",
-  "Role",
-  "Review",
-];
+const steps = ["User Info", "GitHub", "Google", "Discord", "Role", "Review"];
 
 const roleToGroupId: Record<string, string> = {
   Contributor: "g5",
@@ -22,21 +15,16 @@ const roleToGroupId: Record<string, string> = {
   "Super Admin": "g1",
 };
 
-export default function OnboardingModal({
-  open,
-  onClose,
-  onAddUser,
-}: Props) {
+export default function OnboardingModal({ open, onClose, onAddUser }: Props) {
   const [step, setStep] = useState(0);
 
-  const [formData, setFormData] =
-    useState({
-      name: "",
-      email: "",
-      github: "",
-      discord: "",
-      roles: ["Contributor"],
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    github: "",
+    discord: "",
+    roles: ["Contributor"],
+  });
 
   if (!open) return null;
 
@@ -62,8 +50,7 @@ export default function OnboardingModal({
 
       github: {
         username: formData.github,
-        avatarUrl:
-          "https://github.com/octocat.png",
+        avatarUrl: "https://github.com/octocat.png",
         orgs: ["openbridge-dev"],
       },
 
@@ -75,14 +62,11 @@ export default function OnboardingModal({
       google: {
         email: formData.email,
         groups: formData.roles.map(
-          (role) =>
-            `${role.toLowerCase()}s@openbridge.dev`,
+          (role) => `${role.toLowerCase()}s@openbridge.dev`,
         ),
       },
 
-      groups: formData.roles.map(
-        (role) => roleToGroupId[role],
-      ),
+      groups: formData.roles.map((role) => roleToGroupId[role]),
     };
 
     onAddUser(newUser);
@@ -105,13 +89,10 @@ export default function OnboardingModal({
       <div className="w-[700px] rounded-3xl border border-slate-800 bg-slate-900 p-8 text-white shadow-2xl">
         <div className="mb-8 flex items-start justify-between">
           <div>
-            <h2 className="text-3xl font-bold">
-              Onboard New User
-            </h2>
+            <h2 className="text-3xl font-bold">Onboard New User</h2>
 
             <p className="mt-2 text-slate-400">
-              Provision access across connected
-              platforms.
+              Provision access across connected platforms.
             </p>
           </div>
 
@@ -129,9 +110,7 @@ export default function OnboardingModal({
             <div
               key={label}
               className={`rounded-full px-4 py-2 text-sm ${
-                index === step
-                  ? "bg-blue-600"
-                  : "bg-slate-800"
+                index === step ? "bg-blue-600" : "bg-slate-800"
               }`}
             >
               {label}
@@ -182,13 +161,10 @@ export default function OnboardingModal({
 
           {step === 2 && (
             <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6">
-              <div className="font-semibold">
-                Google Workspace Connected
-              </div>
+              <div className="font-semibold">Google Workspace Connected</div>
 
               <div className="mt-2 text-slate-400">
-                Workspace identity will sync
-                automatically using:
+                Workspace identity will sync automatically using:
               </div>
 
               <div className="mt-4 rounded-xl bg-slate-900 px-4 py-3">
@@ -212,53 +188,37 @@ export default function OnboardingModal({
 
           {step === 4 && (
             <div>
-              <h3 className="mb-4 text-xl font-semibold">
-                Assign Roles
-              </h3>
+              <h3 className="mb-4 text-xl font-semibold">Assign Roles</h3>
 
               <div className="space-y-3">
-                {[
-                  "Contributor",
-                  "Committer",
-                  "Maintainer",
-                  "Super Admin",
-                ].map((role) => (
-                  <label
-                    key={role}
-                    className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-950 p-4"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.roles.includes(
-                        role,
-                      )}
-                      onChange={(e) => {
-                        if (
-                          e.target.checked
-                        ) {
-                          setFormData({
-                            ...formData,
-                            roles: [
-                              ...formData.roles,
-                              role,
-                            ],
-                          });
-                        } else {
-                          setFormData({
-                            ...formData,
-                            roles:
-                              formData.roles.filter(
-                                (r) =>
-                                  r !== role,
-                              ),
-                          });
-                        }
-                      }}
-                      className="h-4 w-4"
-                    />
-                    <span>{role}</span>
-                  </label>
-                ))}
+                {["Contributor", "Committer", "Maintainer", "Super Admin"].map(
+                  (role) => (
+                    <label
+                      key={role}
+                      className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-950 p-4"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.roles.includes(role)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({
+                              ...formData,
+                              roles: [...formData.roles, role],
+                            });
+                          } else {
+                            setFormData({
+                              ...formData,
+                              roles: formData.roles.filter((r) => r !== role),
+                            });
+                          }
+                        }}
+                        className="h-4 w-4"
+                      />
+                      <span>{role}</span>
+                    </label>
+                  ),
+                )}
               </div>
             </div>
           )}
@@ -266,30 +226,15 @@ export default function OnboardingModal({
           {step === 5 && (
             <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6">
               <div className="space-y-4">
-                <ReviewItem
-                  label="Name"
-                  value={formData.name}
-                />
+                <ReviewItem label="Name" value={formData.name} />
 
-                <ReviewItem
-                  label="Email"
-                  value={formData.email}
-                />
+                <ReviewItem label="Email" value={formData.email} />
 
-                <ReviewItem
-                  label="GitHub"
-                  value={formData.github}
-                />
+                <ReviewItem label="GitHub" value={formData.github} />
 
-                <ReviewItem
-                  label="Discord"
-                  value={formData.discord}
-                />
+                <ReviewItem label="Discord" value={formData.discord} />
 
-                <ReviewItem
-                  label="Roles"
-                  value={formData.roles.join(", ")}
-                />
+                <ReviewItem label="Roles" value={formData.roles.join(", ")} />
               </div>
             </div>
           )}
@@ -337,33 +282,21 @@ function Input({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm text-slate-300">
-        {label}
-      </label>
+      <label className="mb-2 block text-sm text-slate-300">{label}</label>
 
       <input
         value={value}
-        onChange={(e) =>
-          onChange(e.target.value)
-        }
+        onChange={(e) => onChange(e.target.value)}
         className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 outline-none transition focus:border-blue-500"
       />
     </div>
   );
 }
 
-function ReviewItem({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function ReviewItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-      <span className="text-slate-400">
-        {label}
-      </span>
+      <span className="text-slate-400">{label}</span>
 
       <span>{value || "-"}</span>
     </div>

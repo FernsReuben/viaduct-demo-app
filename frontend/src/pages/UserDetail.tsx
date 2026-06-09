@@ -16,7 +16,11 @@ const groupNameMap: Record<string, string> = {
   g6: "Community Moderator",
 };
 
-export default function UserDetailPage({ users, groups, darkMode }: Props) {
+export default function UserDetailPage({
+  users,
+  groups,
+  darkMode,
+}: Props) {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const user = users.find((u) => u.id === userId);
@@ -87,7 +91,9 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
             : "border-slate-200 bg-white"
         }`}
       >
-        <h2 className="mb-6 text-2xl font-semibold">External Identifiers</h2>
+        <h2 className="mb-6 text-2xl font-semibold">
+          External Identifiers
+        </h2>
 
         <div className="grid gap-6 md:grid-cols-3">
           {/* GitHub */}
@@ -99,14 +105,10 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
             }`}
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">GitHub</h3>
-              <span
-                className={`rounded-full px-3 py-1 text-sm ${
-                  darkMode
-                    ? "bg-gray-700 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
+              <h3 className="text-lg font-semibold">
+                GitHub
+              </h3>
+              <span className="rounded-full bg-gray-700 px-3 py-1 text-sm">
                 Connected
               </span>
             </div>
@@ -115,32 +117,40 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
               <div>
                 <div
                   className={`text-sm ${
-                    darkMode ? "text-slate-400" : "text-slate-600"
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-600"
                   }`}
                 >
                   Username
                 </div>
-                <div className="mt-1 font-medium">@{user.github?.username}</div>
+                <div className="mt-1 font-medium">
+                  @{user.github?.username}
+                </div>
               </div>
 
               {user.github?.orgs && (
                 <div>
                   <div
                     className={`text-sm ${
-                      darkMode ? "text-slate-400" : "text-slate-600"
+                      darkMode
+                        ? "text-slate-400"
+                        : "text-slate-600"
                     }`}
                   >
                     Organizations
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {user.github.orgs.map((org) => (
-                      <span
-                        key={org}
-                        className="rounded-full bg-blue-600/20 px-3 py-1 text-sm text-blue-400"
-                      >
-                        {org}
-                      </span>
-                    ))}
+                    {user.github.orgs.map(
+                      (org) => (
+                        <span
+                          key={org}
+                          className="rounded-full bg-blue-600/20 px-3 py-1 text-sm text-blue-400"
+                        >
+                          {org}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               )}
@@ -156,14 +166,10 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
             }`}
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Discord</h3>
-              <span
-                className={`rounded-full px-3 py-1 text-sm ${
-                  darkMode
-                    ? "bg-gray-700 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
+              <h3 className="text-lg font-semibold">
+                Discord
+              </h3>
+              <span className="rounded-full bg-gray-700 px-3 py-1 text-sm">
                 Connected
               </span>
             </div>
@@ -172,32 +178,40 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
               <div>
                 <div
                   className={`text-sm ${
-                    darkMode ? "text-slate-400" : "text-slate-600"
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-600"
                   }`}
                 >
                   Username
                 </div>
-                <div className="mt-1 font-medium">{user.discord?.username}</div>
+                <div className="mt-1 font-medium">
+                  {user.discord?.username}
+                </div>
               </div>
 
               {user.discord?.roles && (
                 <div>
                   <div
                     className={`text-sm ${
-                      darkMode ? "text-slate-400" : "text-slate-600"
+                      darkMode
+                        ? "text-slate-400"
+                        : "text-slate-600"
                     }`}
                   >
                     Roles
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {user.discord.roles.map((role) => (
-                      <span
-                        key={role}
-                        className="rounded-full bg-purple-600/20 px-3 py-1 text-sm text-purple-400"
-                      >
-                        {role}
-                      </span>
-                    ))}
+                    {user.discord.roles.map(
+                      (role) => (
+                        <span
+                          key={role}
+                          className="rounded-full bg-purple-600/20 px-3 py-1 text-sm text-purple-400"
+                        >
+                          {role}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               )}
@@ -213,14 +227,10 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
             }`}
           >
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Google</h3>
-              <span
-                className={`rounded-full px-3 py-1 text-sm ${
-                  darkMode
-                    ? "bg-gray-700 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
+              <h3 className="text-lg font-semibold">
+                Google
+              </h3>
+              <span className="rounded-full bg-gray-700 px-3 py-1 text-sm">
                 Connected
               </span>
             </div>
@@ -229,32 +239,40 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
               <div>
                 <div
                   className={`text-sm ${
-                    darkMode ? "text-slate-400" : "text-slate-600"
+                    darkMode
+                      ? "text-slate-400"
+                      : "text-slate-600"
                   }`}
                 >
                   Email
                 </div>
-                <div className="mt-1 font-medium">{user.google?.email}</div>
+                <div className="mt-1 font-medium">
+                  {user.google?.email}
+                </div>
               </div>
 
               {user.google?.groups && (
                 <div>
                   <div
                     className={`text-sm ${
-                      darkMode ? "text-slate-400" : "text-slate-600"
+                      darkMode
+                        ? "text-slate-400"
+                        : "text-slate-600"
                     }`}
                   >
                     Groups
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {user.google.groups.map((group) => (
-                      <span
-                        key={group}
-                        className="rounded-full bg-amber-600/20 px-3 py-1 text-sm text-amber-400"
-                      >
-                        {group}
-                      </span>
-                    ))}
+                    {user.google.groups.map(
+                      (group) => (
+                        <span
+                          key={group}
+                          className="rounded-full bg-amber-600/20 px-3 py-1 text-sm text-amber-400"
+                        >
+                          {group}
+                        </span>
+                      ),
+                    )}
                   </div>
                 </div>
               )}
@@ -271,17 +289,26 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
             : "border-slate-200 bg-white"
         }`}
       >
-        <h2 className="mb-6 text-2xl font-semibold">Group Memberships</h2>
+        <h2 className="mb-6 text-2xl font-semibold">
+          Group Memberships
+        </h2>
 
         <div className="grid gap-4 md:grid-cols-2">
           {user.groups.length === 0 ? (
-            <p className={`${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+            <p
+              className={`${
+                darkMode ? "text-slate-400" : "text-slate-600"
+              }`}
+            >
               No group memberships
             </p>
           ) : (
             user.groups.map((groupId) => {
-              const groupName = groupNameMap[groupId] || groupId;
-              const groupData = groups.find((g) => g.id === groupId);
+              const groupName =
+                groupNameMap[groupId] || groupId;
+              const groupData = groups.find(
+                (g) => g.id === groupId,
+              );
 
               return (
                 <div
@@ -292,35 +319,47 @@ export default function UserDetailPage({ users, groups, darkMode }: Props) {
                       : "border-slate-200 bg-slate-50"
                   }`}
                 >
-                  <h3 className="text-lg font-semibold">{groupName}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {groupName}
+                  </h3>
 
-                  {groupData?.childGroups &&
-                    groupData.childGroups.length > 0 && (
+                  {groupData?.childGroups && (
+                    groupData.childGroups.length >
+                      0 && (
                       <div className="mt-4">
                         <div
                           className={`text-sm ${
-                            darkMode ? "text-slate-400" : "text-slate-600"
+                            darkMode
+                              ? "text-slate-400"
+                              : "text-slate-600"
                           }`}
                         >
                           Inherited Groups
                         </div>
                         <div className="mt-2 flex flex-wrap gap-2">
-                          {groupData.childGroups.map((childId) => {
-                            const childName =
-                              groups.find((g) => g.id === childId)?.name ||
-                              childId;
-                            return (
-                              <span
-                                key={childId}
-                                className="rounded-full bg-blue-600/20 px-3 py-1 text-sm text-blue-400"
-                              >
-                                {childName}
-                              </span>
-                            );
-                          })}
+                          {groupData.childGroups.map(
+                            (childId) => {
+                              const childName =
+                                groups.find(
+                                  (g) =>
+                                    g.id ===
+                                    childId,
+                                )?.name ||
+                                childId;
+                              return (
+                                <span
+                                  key={childId}
+                                  className="rounded-full bg-blue-600/20 px-3 py-1 text-sm text-blue-400"
+                                >
+                                  {childName}
+                                </span>
+                              );
+                            },
+                          )}
                         </div>
                       </div>
-                    )}
+                    )
+                  )}
                 </div>
               );
             })

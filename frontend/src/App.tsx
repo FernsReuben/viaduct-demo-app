@@ -60,9 +60,9 @@ export type Activity = {
 
 export type ExternalGroup = {
   id: string;
-  provider: string;
+  provider: "GitHub" | "Google" | "Discord";
   name: string;
-
+  description: string;
   mappedGroups: string[];
 };
 
@@ -308,7 +308,9 @@ export default function App() {
 
                 <Route
                   path="/external-groups"
-                  element={<ExternalGroupsPage darkMode={darkMode} />}
+                  element={
+                    <ExternalGroupsPage darkMode={darkMode} users={users} />
+                  }
                 />
 
                 <Route
